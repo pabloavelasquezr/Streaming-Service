@@ -69,6 +69,17 @@
                     <div class="section-title">
                         <h5>Reviews</h5>
                     </div>
+                    @foreach($comments as $comment)
+                        <div class="anime__review__item">
+                            <div class="anime__review__item__pic">
+                                <img src="{{ asset('assets/user_images/'.$comment->image.'') }}" alt="">
+                            </div>
+                            <div class="anime__review__item__text">
+                                <h6>{{ $comment->user_name }} - <span>{{ $comment->created_at->diffForHumans() }}</span></h6>
+                                <p>{{ $comment->comment }}</p>
+                            </div>
+                        </div>
+                    @endforeach
                     <div class="anime__review__item">
                         <div class="anime__review__item__pic">
                             <img src="img/anime/review-1.jpg" alt="">
@@ -77,52 +88,6 @@
                             <h6>Chris Curry - <span>1 Hour ago</span></h6>
                             <p>whachikan Just noticed that someone categorized this as belonging to the genre
                                 "demons" LOL</p>
-                        </div>
-                    </div>
-                    <div class="anime__review__item">
-                        <div class="anime__review__item__pic">
-                            <img src="img/anime/review-2.jpg" alt="">
-                        </div>
-                        <div class="anime__review__item__text">
-                            <h6>Lewis Mann - <span>5 Hour ago</span></h6>
-                            <p>Finally it came out ages ago</p>
-                        </div>
-                    </div>
-                    <div class="anime__review__item">
-                        <div class="anime__review__item__pic">
-                            <img src="img/anime/review-3.jpg" alt="">
-                        </div>
-                        <div class="anime__review__item__text">
-                            <h6>Louis Tyler - <span>20 Hour ago</span></h6>
-                            <p>Where is the episode 15 ? Slow update! Tch</p>
-                        </div>
-                    </div>
-                    <div class="anime__review__item">
-                        <div class="anime__review__item__pic">
-                            <img src="img/anime/review-4.jpg" alt="">
-                        </div>
-                        <div class="anime__review__item__text">
-                            <h6>Chris Curry - <span>1 Hour ago</span></h6>
-                            <p>whachikan Just noticed that someone categorized this as belonging to the genre
-                                "demons" LOL</p>
-                        </div>
-                    </div>
-                    <div class="anime__review__item">
-                        <div class="anime__review__item__pic">
-                            <img src="img/anime/review-5.jpg" alt="">
-                        </div>
-                        <div class="anime__review__item__text">
-                            <h6>Lewis Mann - <span>5 Hour ago</span></h6>
-                            <p>Finally it came out ages ago</p>
-                        </div>
-                    </div>
-                    <div class="anime__review__item">
-                        <div class="anime__review__item__pic">
-                            <img src="img/anime/review-6.jpg" alt="">
-                        </div>
-                        <div class="anime__review__item__text">
-                            <h6>Louis Tyler - <span>20 Hour ago</span></h6>
-                            <p>Where is the episode 15 ? Slow update! Tch</p>
                         </div>
                     </div>
                 </div>
