@@ -12,7 +12,9 @@ class AnimeController extends Controller
     {
         $show = Show::find($id);
 
-        $randomShows = Show::select()->orderBy('id', 'desc')->take(5)->where('id', '!=', $id)->get();
+        $randomShows = Show::select()->orderBy('id', 'desc')->take(5)
+            ->where('id', '!=', $id)
+            ->get();
 
         return view('shows.anime-details', compact('show', 'randomShows'));
     }
