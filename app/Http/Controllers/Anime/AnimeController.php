@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment\Comment;
 use App\Models\Show\Show;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class AnimeController extends Controller
 {
@@ -23,4 +25,22 @@ class AnimeController extends Controller
 
         return view('shows.anime-details', compact('show', 'randomShows', 'comments'));
     }
+
+
+
+    public function insertComments(Request $request, $id)
+    {
+        $insertComments = Comment::create([
+            'show_id' => $id,
+            'user_name' => Auth::user()->name,
+            'image' => Auth::user()->image,
+            'comment' => $request->comment,
+        ]);
+        if($insertComments){
+            return Redirect::route('anime.details', $id)->with('success', 'Comment added successfully');
+        }
+    }
+
 }
+
+

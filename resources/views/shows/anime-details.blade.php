@@ -63,6 +63,13 @@
                 </div>
             </div>
         </div>
+        <div class="container">
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+        </div>
         <div class="row">
             <div class="col-lg-8 col-md-8">
                 <div class="anime__details__review">
@@ -95,8 +102,9 @@
                     <div class="section-title">
                         <h5>Your Comment</h5>
                     </div>
-                    <form action="#">
-                        <textarea placeholder="Your Comment"></textarea>
+                    <form method="POST" action="{{ route('anime.insert.comments', $show->id) }}">
+                        @csrf
+                        <textarea name="comment" placeholder="Your Comment"></textarea>
                         <button type="submit"><i class="fa fa-location-arrow"></i> Review</button>
                     </form>
                 </div>
