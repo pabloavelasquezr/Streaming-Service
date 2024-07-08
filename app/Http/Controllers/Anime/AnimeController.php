@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Anime;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment\Comment;
+use App\Models\Following\Following;
 use App\Models\Show\Show;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,15 @@ class AnimeController extends Controller
             ->where('show_id', $id)
             ->get();
 
-        return view('shows.anime-details', compact('show', 'randomShows', 'comments'));
+
+        // validación del botón de seguir
+
+        $validateFollowing = Following::where('user_id', Auth::user()->id)
+            ->where('show_id', $id)->count();
+
+
+
+        return view('shows.anime-details', compact('show', 'randomShows', 'comments', 'validateFollowing'));
     }
 
 
@@ -40,6 +49,18 @@ class AnimeController extends Controller
             return Redirect::route('anime.details', $id)->with('success', 'Comment added successfully');
         }
     }
+
+    public function follow(Request $request, $id)
+    {
+        $follow = Following::create([
+            'show_id' => $id,
+            'user_id' => Auth::user()->id,
+        ]);
+        if ($follow) {
+            return Redirect::route('anime.details', $id)->with('follow', 'You followed this show successfully');
+        }
+    }
+
 
 }
 
