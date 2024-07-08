@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment\Comment;
 use App\Models\Following\Following;
 use App\Models\Show\Show;
+use App\Models\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -26,13 +27,34 @@ class AnimeController extends Controller
 
 
         // validación del botón de seguir
-
         $validateFollowing = Following::where('user_id', Auth::user()->id)
             ->where('show_id', $id)->count();
+     
+        // count comments
+        $numberComments = Comment::where('show_id', $id)->count();
 
 
+        // getting new views
+        if(isset(Auth::user()->id)){
 
-        return view('shows.anime-details', compact('show', 'randomShows', 'comments', 'validateFollowing'));
+            // Validación de las vistas
+            $validateViews = View::where('user_id', Auth::user()->id)
+                ->where('show_id', $id)->count();
+            
+            if($validateViews == 0){
+
+                $views = View::create([
+                    'show_id' => $id,
+                    'user_id' => Auth::user()->id,
+                ]);
+            }
+
+        }
+        
+        // count views
+        $numberViews = View::where('show_id', $id)->count();
+
+        return view('shows.anime-details', compact('show', 'randomShows', 'comments', 'validateFollowing', 'validateViews', 'numberViews', 'numberComments'));
     }
 
 
