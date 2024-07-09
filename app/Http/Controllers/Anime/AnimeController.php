@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Anime;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment\Comment;
+use App\Models\Episode\Episode;
 use App\Models\Following\Following;
 use App\Models\Show\Show;
 use App\Models\View\View;
@@ -57,8 +58,6 @@ class AnimeController extends Controller
         return view('shows.anime-details', compact('show', 'randomShows', 'comments', 'validateFollowing', 'validateViews', 'numberViews', 'numberComments'));
     }
 
-
-
     public function insertComments(Request $request, $id)
     {
         $insertComments = Comment::create([
@@ -83,6 +82,16 @@ class AnimeController extends Controller
         }
     }
 
+    public function animeWatching($show_id, $episode_id)
+    {
+        $show = Show::find($show_id);
+        
+        $episode = Episode::where('id',$episode_id)->where('show_id', $show_id)->first();
+
+        $episodes = Episode::select()->where('show_id', $show_id)->get();
+
+        return view('shows.anime-watching', compact('show', 'episode', 'episodes'));
+    }
 
 }
 

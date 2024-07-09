@@ -27,5 +27,19 @@ class episodeSeeder extends Seeder
         $episode->video = '2.mp4';
         $episode->thumbnail = 'anime-watch-2.jpg';
         $episode->save();
+
+        $episode = new Episode();
+        $episode->show_id = 1;
+        $episode->episode_name = '02';
+        $episode->video = '3.mp4';
+        $episode->thumbnail = 'anime-watch.jpg';
+        $episode->save();
+
+        $episode = new Episode();
+        $episode->show_id = 2;
+        $episode->episode_name = '02';
+        $episode->video = '4.mp4';
+        $episode->thumbnail = 'anime-watch-2.jpg';
+        $episode->save();
     }
 }

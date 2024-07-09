@@ -69,7 +69,7 @@
                                     <button type="submit" class="follow-btn"><i class="fa fa-heart-o"></i>Follow</button>
                                 </form>
                             @endif
-                            <a href="anime-watching.html" class="watch-btn"><span>Watch Now</span> <i class="fa fa-angle-right"></i></a>
+                            <a href="{{ route('anime.watching',['show_id' => $show->id,'episode_id' => 1]) }}" class="watch-btn"><span>Watch Now</span> <i class="fa fa-angle-right"></i></a>
                         </div>
                     </div>
                 </div>
