@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             ShowSeeder::class,
             CommentSeeder::class,
             EpisodeSeeder::class,
+            categorySeeder::class,
         ]);
     }
 }

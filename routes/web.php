@@ -22,3 +22,6 @@ Route::post('shows/follow/{id}', [App\Http\Controllers\Anime\AnimeController::cl
 
 //episodes
 Route::get('shows/anime-watching/{show_id}/{episode_id}', [App\Http\Controllers\Anime\AnimeController::class, 'animeWatching'])->name('anime.watching');
+
+//categories
+Route::get('shows/category/{category_name}', [App\Http\Controllers\Anime\AnimeController::class, 'category'])->name('anime.category');
