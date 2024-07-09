@@ -86,11 +86,16 @@ class AnimeController extends Controller
     {
         $show = Show::find($show_id);
         
-        $episode = Episode::where('id',$episode_id)->where('show_id', $show_id)->first();
+        $episode = Episode::where('episode_name',$episode_id)->where('show_id', $show_id)->first();
 
         $episodes = Episode::select()->where('show_id', $show_id)->get();
 
-        return view('shows.anime-watching', compact('show', 'episode', 'episodes'));
+
+        //comments
+        $comments = Comment::select()->orderBy('id', 'desc')->take(8)
+            ->where('show_id', $show_id)->get();
+
+        return view('shows.anime-watching', compact('show', 'episode', 'episodes', 'comments'));
     }
 
 }
