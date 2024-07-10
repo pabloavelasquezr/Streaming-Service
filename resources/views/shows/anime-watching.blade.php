@@ -62,12 +62,15 @@
                         <div class="section-title">
                             <h5>Your Comment</h5>
                         </div>
-
-                        <form method="POST" action="{{ route('anime.insert.comments', $show->id) }}">
-                            @csrf
-                            <textarea name="comment" placeholder="Your Comment"></textarea>
-                            <button type="submit"><i class="fa fa-location-arrow"></i> Review</button>
-                        </form>
+                        @if(isset(Auth::user()->id))
+                            <form method="POST" action="{{ route('anime.insert.comments', $show->id) }}">
+                                @csrf
+                                <textarea name="comment" placeholder="Your Comment"></textarea>
+                                <button type="submit"><i class="fa fa-location-arrow"></i> Review</button>
+                            </form>
+                        @else
+                            <p class="alert alert-success">You need to login to comment</p>
+                        @endif
                     </div>
                 </div>
             </div>

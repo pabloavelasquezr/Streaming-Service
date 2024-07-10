@@ -61,15 +61,17 @@
                             </div>
                         </div>
                         <div class="anime__details__btn">
-                            @if ($validateFollowing > 0)  
-                                <button disabled class="follow-btn"><i class="fa fa-heart-o"></i>You Followed this Show</button>
-                            @else
-                                <form method="POST" action="{{ route('anime.follow', $show->id) }}">
-                                    @csrf
-                                    <input type="hidden" name="show_image" value="{{ $show->image }}">
-                                    <input type="hidden" name="show_name" value="{{ $show->name }}">
-                                    <button type="submit" class="follow-btn"><i class="fa fa-heart-o"></i>Follow</button>
-                                </form>
+                            @if(isset(Auth::user()->id))
+                                @if ($validateFollowing > 0)  
+                                    <button disabled class="follow-btn"><i class="fa fa-heart-o"></i>You Followed this Show</button>
+                                @else
+                                    <form method="POST" action="{{ route('anime.follow', $show->id) }}">
+                                        @csrf
+                                        <input type="hidden" name="show_image" value="{{ $show->image }}">
+                                        <input type="hidden" name="show_name" value="{{ $show->name }}">
+                                        <button type="submit" class="follow-btn"><i class="fa fa-heart-o"></i>Follow</button>
+                                    </form>
+                                @endif
                             @endif
                             <a href="{{ route('anime.watching',['show_id' => $show->id,'episode_id' => 1]) }}" class="watch-btn"><span>Watch Now</span> <i class="fa fa-angle-right"></i></a>
                         </div>
@@ -116,11 +118,15 @@
                     <div class="section-title">
                         <h5>Your Comment</h5>
                     </div>
-                    <form method="POST" action="{{ route('anime.insert.comments', $show->id) }}">
-                        @csrf
-                        <textarea name="comment" placeholder="Your Comment"></textarea>
-                        <button type="submit"><i class="fa fa-location-arrow"></i> Review</button>
-                    </form>
+                    @if(isset(Auth::user()->id))
+                        <form method="POST" action="{{ route('anime.insert.comments', $show->id) }}">
+                            @csrf
+                            <textarea name="comment" placeholder="Your Comment"></textarea>
+                            <button type="submit"><i class="fa fa-location-arrow"></i> Review</button>
+                        </form>
+                    @else
+                        <p class="alert alert-success">You need to login to comment</p>
+                    @endif
                 </div>
             </div>
             <div class="col-lg-4 col-md-4">

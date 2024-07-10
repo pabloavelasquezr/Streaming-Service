@@ -25,18 +25,19 @@ class AnimeController extends Controller
         $comments = Comment::select()->orderBy('id', 'desc')->take(8)
             ->where('show_id', $id)
             ->get();
-
-
-        // validación del botón de seguir
-        $validateFollowing = Following::where('user_id', Auth::user()->id)
-            ->where('show_id', $id)->count();
      
         // count comments
         $numberComments = Comment::where('show_id', $id)->count();
 
+        // count views
+        $numberViews = View::where('show_id', $id)->count();
 
         // getting new views
         if(isset(Auth::user()->id)){
+
+            // validación del botón de seguir
+            $validateFollowing = Following::where('user_id', Auth::user()->id)
+                ->where('show_id', $id)->count();
 
             // Validación de las vistas
             $validateViews = View::where('user_id', Auth::user()->id)
@@ -49,13 +50,11 @@ class AnimeController extends Controller
                     'user_id' => Auth::user()->id,
                 ]);
             }
-
+            return view('shows.anime-details', compact('show', 'randomShows', 'comments', 'validateFollowing', 'validateViews', 'numberViews', 'numberComments'));
+        }else{
+            return view('shows.anime-details', compact('show', 'randomShows', 'comments', 'numberViews', 'numberComments'));
         }
-        
-        // count views
-        $numberViews = View::where('show_id', $id)->count();
 
-        return view('shows.anime-details', compact('show', 'randomShows', 'comments', 'validateFollowing', 'validateViews', 'numberViews', 'numberComments'));
     }
 
     public function insertComments(Request $request, $id)

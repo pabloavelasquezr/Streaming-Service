@@ -62,7 +62,7 @@
                             @foreach ($trendingShows as $show)
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{{ asset('assets/img/'.$show->image.'') }}">
+                                    <div onclick="location.href='{{ route('anime.details', $show->id) }}';" style="cursor:pointer" class="product__item__pic set-bg" data-setbg="{{ asset('assets/img/'.$show->image.'') }}">
                                         {{-- <div class="ep">18 / 18</div> --}}
                                         {{-- <div class="comment"><i class="fa fa-comments"></i> 11</div>
                                         <div class="view"><i class="fa fa-eye"></i> 9141</div> --}}
@@ -96,7 +96,7 @@
                             @foreach ($adventureShows as $show)
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="{{ asset('assets/img/'.$show->image.'') }}">
+                                        <div onclick="location.href='{{ route('anime.details', $show->id) }}';" style="cursor:pointer" class="product__item__pic set-bg" data-setbg="{{ asset('assets/img/'.$show->image.'') }}">
                                             {{-- <div class="ep">18 / 18</div>
                                             <div class="comment"><i class="fa fa-comments"></i> 11</div>
                                             <div class="view"><i class="fa fa-eye"></i> 9141</div> --}}
@@ -130,7 +130,7 @@
                             @foreach ($recentShows as $show)
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="{{ asset('assets/img/'.$show->image.'') }}">
+                                        <div onclick="location.href='{{ route('anime.details', $show->id) }}';" style="cursor:pointer" class="product__item__pic set-bg" data-setbg="{{ asset('assets/img/'.$show->image.'') }}">
                                             {{-- <div class="ep">18 / 18</div>
                                             <div class="comment"><i class="fa fa-comments"></i> 11</div>
                                             <div class="view"><i class="fa fa-eye"></i> 9141</div> --}}
@@ -164,7 +164,7 @@
                             @foreach ($liveShows as $show)
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="{{ asset('assets/img/'.$show->image.'') }}">
+                                        <div onclick="location.href='{{ route('anime.details', $show->id) }}';" style="cursor:pointer" class="product__item__pic set-bg" data-setbg="{{ asset('assets/img/'.$show->image.'') }}">
                                             {{-- <div class="ep">18 / 18</div>
                                             <div class="comment"><i class="fa fa-comments"></i> 11</div>
                                             <div class="view"><i class="fa fa-eye"></i> 9141</div> --}}
@@ -174,7 +174,7 @@
                                                 <li>Active</li>
                                                 <li>TV Show</li>
                                             </ul>
-                                            <h5><a href="#">{{ $show->name }}</a></h5>
+                                            <h5><a href="{{ route('anime.details', $show->id) }}">{{ $show->name }}</a></h5>
                                         </div>
                                     </div>
                                 </div>
@@ -194,14 +194,16 @@
         @foreach ($forYouShows as $show)
             <div class="product__sidebar__comment__item">
                 <div class="product__sidebar__comment__item__pic">
+                    <a href="{{ route('anime.details', $show->id) }}">
                     <img width="100" height="70" src="{{ asset('assets/img/'.$show->image.'') }}" alt="">
+                    </a>
                 </div>
                 <div class="product__sidebar__comment__item__text">
                     <ul>
                         <li>Active</li>
                         <li>TV Show</li>
                     </ul>
-                    <h5><a href="#">{{ $show->name }}</a></h5>
+                    <h5><a href="{{ route('anime.details', $show->id) }}">{{ $show->name }}</a></h5>
                     {{-- <span><i class="fa fa-eye"></i> 19.141 Viewes</span> --}}
                 </div>
             </div>
