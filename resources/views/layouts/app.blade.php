@@ -153,7 +153,10 @@
                                 </li>
                             @endguest
                         </ul>
-
+                            <form method="POST" action="{{ route('anime.search.shows') }}" class="form-inline my-2 my-lg-0">
+                                @csrf
+                                <input class="form-control mr-sm-2" type="search" name="show" placeholder="Search...">
+                            </form>
                             {{-- <a href="#" class="search-switch"><span class="icon_search"></span></a> --}}
                             {{-- <a href="./login.html"><span class="icon_profile"></span></a> --}}
                         </div>
