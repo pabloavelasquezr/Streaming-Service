@@ -25,3 +25,6 @@ Route::get('shows/anime-watching/{show_id}/{episode_id}', [App\Http\Controllers\
 
 //categories
 Route::get('shows/category/{category_name}', [App\Http\Controllers\Anime\AnimeController::class, 'category'])->name('anime.category');
+
+//users 'users followed shows'
+Route::get('users/followed-shows', [App\Http\Controllers\Users\UsersController::class, 'followedShows'])->name('users.followed.shows');
