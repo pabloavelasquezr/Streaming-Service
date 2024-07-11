@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 class Admin extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    /* use HasFactory, Notifiable; */
 
     /**
      * The attributes that are mass assignable.
@@ -21,7 +21,6 @@ class Admin extends Authenticatable
         'name',
         'email',
         'password',
-        'image'
     ];
 
     /**
@@ -31,7 +30,6 @@ class Admin extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -39,11 +37,11 @@ class Admin extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    // protected function casts(): array
+    // {
+    //     return [
+    //         'email_verified_at' => 'datetime',
+    //         'password' => 'hashed',
+    //     ];
+    // }
 }

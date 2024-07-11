@@ -21,45 +21,59 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav side-nav" >
-          <li class="nav-item">
-            <a class="nav-link" style="margin-left: 20px;" href="index.html">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="admins/admins.html" style="margin-left: 20px;">Admins</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="shows-admins/show-shows.html" style="margin-left: 20px;">Shows</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="genres-admins/show-genres.html" style="margin-left: 20px;">Genres</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="episodes-admins/show-episodes.html" style="margin-left: 20px;">Episodes</a>
-          </li>
-        </ul>
+        @auth('admin')
+
+          <ul class="navbar-nav side-nav" >
+            <li class="nav-item">
+              <a class="nav-link" style="margin-left: 20px;" href="{{ route('admins.dashboard') }}">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('admins.all') }}" style="margin-left: 20px;">Admins</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="shows-admins/show-shows.html" style="margin-left: 20px;">Shows</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="genres-admins/show-genres.html" style="margin-left: 20px;">Genres</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="episodes-admins/show-episodes.html" style="margin-left: 20px;">Episodes</a>
+            </li>
+          </ul>
+
+        @endauth
         <ul class="navbar-nav ml-md-auto d-md-flex">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="admins/login-admins.html">login
-            </a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link  dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              username
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Logout</a>
-              
-          </li>
+
+            @auth('admin')
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('admins.dashboard') }}">Home
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link  dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ Auth::guard('admin')->user()->name }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{{ route('logout') }}"
+                  onclick="event.preventDefault();
+                  document.getElementById('logout-form').submit();"
+                  >Logout</a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                  </form>
+              </li>
+            @else
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('view.login') }}">login
+                </a>
+              </li>
+            @endauth
+
                           
-          
+
         </ul>
       </div>
     </div>
