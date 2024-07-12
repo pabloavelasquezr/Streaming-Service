@@ -11,6 +11,7 @@ use App\Models\Episode\Episode;
 use App\Models\Show\Show;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\File;
 
 class AdminsController extends Controller
 {
@@ -65,11 +66,70 @@ class AdminsController extends Controller
         }
     }
 
-    #allShows
-
     public function allShows()
     {
         $allShows = Show::select()->orderBy('id', 'desc')->get();
         return view('admins.allshows', compact('allShows'));
+    }
+
+    public function createShows()
+    {
+        $categories = Category::all();
+        return view('admins.createshows', compact('categories'));
+    }
+
+    public function storeShows(Request $request)
+    {
+        // Request()->validate([
+
+        $this->validate($request, [
+            'name' => 'required|max:40',
+            'image' => 'required|max:600',
+            'description' => 'required|max:40',
+            'type' => 'required|max:40',
+            'studios' => 'required|max:40',
+            'date_aired' => 'required||max:40',
+            'status' => 'required|max:40',
+            'genere' => 'required|max:40',
+            'duration' => 'required|max:40',
+            'quality' => 'required|max:40'
+        ]);
+
+        $destinationPath = 'assets/img/';
+        $myimage = $request->image->getClientOriginalName();
+        $request->image->move(public_path($destinationPath), $myimage);        
+
+        $storeShows = Show::create([
+            'name' => $request->name,
+            'image' => $myimage,
+            'description' => $request->description,
+            'type' => $request->type,
+            'studios' => $request->studios,
+            'date_aired' => $request->date_aired,
+            'status' => $request->status,
+            'genere' => $request->genere,
+            'duration' => $request->duration,
+            'quality' => $request->quality
+        ]);
+
+        if ($storeShows) {
+            return Redirect::route('shows.all')->with(['success' => 'Show created successfully']);
+        }
+    }
+
+    public function deleteShows($id)
+    {
+        $show = Show::find($id);
+        
+        if (File::exists(public_path('assets/img/' . $show->image))) {
+            File::delete(public_path('assets/img/' . $show->image));
+            $show->delete();
+        } else {
+            //dd('File does not exists.');
+        }
+        
+        if ($show) {
+            return Redirect::route('shows.all')->with(['delete' => 'Show deleted successfully']);
+        }
     }
 }

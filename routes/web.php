@@ -51,5 +51,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
 
     //shows
     Route::get('/all-shows', [App\Http\Controllers\Admins\AdminsController::class, 'allShows'])->name('shows.all');
+    Route::get('/create-shows', [App\Http\Controllers\Admins\AdminsController::class, 'createShows'])->name('shows.create');
+    Route::post('/store-shows', [App\Http\Controllers\Admins\AdminsController::class, 'storeShows'])->name('shows.store');
+    //delete
+    Route::get('/delete-shows/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'deleteShows'])->name('shows.delete');
 
 });
