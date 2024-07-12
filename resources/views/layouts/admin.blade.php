@@ -33,7 +33,7 @@
               <a class="nav-link" href="{{ route('admins.all') }}" style="margin-left: 20px;">Admins</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="shows-admins/show-shows.html" style="margin-left: 20px;">Shows</a>
+              <a class="nav-link" href="{{ route('shows.all') }}" style="margin-left: 20px;">Shows</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="genres-admins/show-genres.html" style="margin-left: 20px;">Genres</a>
@@ -60,7 +60,7 @@
                   <a class="dropdown-item" href="{{ route('logout') }}"
                   onclick="event.preventDefault();
                   document.getElementById('logout-form').submit();"
-                  >Logout</a>
+                  >{{ __('Logout') }}</a>
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
                   </form>

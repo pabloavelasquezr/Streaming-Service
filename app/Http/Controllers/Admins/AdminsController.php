@@ -64,4 +64,12 @@ class AdminsController extends Controller
             return Redirect::route('admins.all')->with(['success' => 'Admin created successfully']);
         }
     }
+
+    #allShows
+
+    public function allShows()
+    {
+        $allShows = Show::select()->orderBy('id', 'desc')->get();
+        return view('admins.allshows', compact('allShows'));
+    }
 }
