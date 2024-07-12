@@ -36,7 +36,7 @@
               <a class="nav-link" href="{{ route('shows.all') }}" style="margin-left: 20px;">Shows</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="genres-admins/show-genres.html" style="margin-left: 20px;">Genres</a>
+              <a class="nav-link" href="{{ route('categories.all') }}" style="margin-left: 20px;">Genres</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="episodes-admins/show-episodes.html" style="margin-left: 20px;">Episodes</a>

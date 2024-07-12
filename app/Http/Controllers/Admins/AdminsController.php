@@ -132,4 +132,40 @@ class AdminsController extends Controller
             return Redirect::route('shows.all')->with(['delete' => 'Show deleted successfully']);
         }
     }
+
+
+    public function allCategories()
+    {
+        $allCategories = Category::select()->orderBy('id', 'desc')->get();
+        return view('admins.allcategories', compact('allCategories'));
+    }
+
+    public function createCategories()
+    {
+        return view('admins.createcategories');
+    }
+
+    public function storeCategories(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:40',
+        ]);
+        $storeCategories = Category::create([
+            'name' => $request->name,
+        ]);
+
+        if ($storeCategories) {
+            return Redirect::route('categories.all')->with(['success' => 'Category created successfully']);
+        }
+    }
+
+    public function deleteCategories($id)
+    {
+        $category = Category::find($id);
+        $category->delete();
+        if ($category) {
+            return Redirect::route('categories.all')->with(['delete' => 'Category deleted successfully']);
+        }
+    }
+
 }
