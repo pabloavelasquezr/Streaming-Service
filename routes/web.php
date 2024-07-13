@@ -60,4 +60,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::get('/create-categories', [App\Http\Controllers\Admins\AdminsController::class, 'createCategories'])->name('categories.create');
     Route::post('/store-categories', [App\Http\Controllers\Admins\AdminsController::class, 'storeCategories'])->name('categories.store');
     Route::get('/delete-categories/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'deleteCategories'])->name('categories.delete');
+
+    //episodes
+    Route::get('/all-episodes', [App\Http\Controllers\Admins\AdminsController::class, 'allEpisodes'])->name('episodes.all');
+    Route::get('/create-episodes', [App\Http\Controllers\Admins\AdminsController::class, 'createEpisodes'])->name('episodes.create');
+    Route::post('/store-episodes', [App\Http\Controllers\Admins\AdminsController::class, 'storeEpisodes'])->name('episodes.store');
+    Route::get('/delete-episodes/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'deleteEpisodes'])->name('episodes.delete');
+
 });

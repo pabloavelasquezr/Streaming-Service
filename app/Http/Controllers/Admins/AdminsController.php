@@ -168,4 +168,61 @@ class AdminsController extends Controller
         }
     }
 
+    public function allEpisodes()
+    {
+        $allEpisodes = Episode::select()->orderBy('id', 'desc')->get();
+        return view('admins.allepisodes', compact('allEpisodes'));
+    }
+
+    public function createEpisodes()
+    {
+        $shows = Show::all();
+        return view('admins.createepisodes', compact('shows'));
+    }
+
+    public function storeEpisodes(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:40',
+            'thumbnail' => 'required|max:600',
+            'video' => 'required',
+            'show_id' => 'required|max:40',
+        ]);
+
+        $destinationPath = 'assets/thumbnails/';
+        $myimage = $request->thumbnail->getClientOriginalName();
+        $request->thumbnail->move(public_path($destinationPath), $myimage);
+
+        $destinationPathVideo = 'assets/videos/';
+        $myvideo = $request->video->getClientOriginalName();
+        $request->video->move(public_path($destinationPathVideo), $myvideo);
+
+        $storeEpisodes = Episode::create([
+            'episode_name' => $request->name,
+            'thumbnail' => $myimage,
+            'video' => $myvideo,
+            'show_id' => $request->show_id,
+        ]);
+
+        if ($storeEpisodes) {
+            return Redirect::route('episodes.all')->with(['success' => 'Episode created successfully']);
+        }
+    }
+    // delete episodes
+    public function deleteEpisodes($id)
+    {
+        $episode = Episode::find($id);
+        
+        if (File::exists(public_path('assets/thumbnails/' . $episode->thumbnail)) && File::exists(public_path('assets/videos/' . $episode->video))) {
+            File::delete(public_path('assets/thumbnails/' . $episode->thumbnail));
+            File::delete(public_path('assets/videos/' . $episode->video));
+            $episode->delete();
+        } else {
+            //dd('File does not exists.');
+        }
+        
+        if ($episode) {
+            return Redirect::route('episodes.all')->with(['delete' => 'Episode deleted successfully']);
+        }
+    }
 }
