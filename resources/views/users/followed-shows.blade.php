@@ -36,7 +36,7 @@
                                 @foreach($followedShows as $show)
                                     <div class="col-lg-4 col-md-6 col-sm-6">
                                         <div class="product__item">
-                                            <div class="product__item__pic set-bg" data-setbg="{{ asset('assets/img/'.$show->show_image.'') }}" onclick="window.location.href='{{ route('anime.details', $show->id) }}'" title="{{ $show->name }}">
+                                            <div class="product__item__pic set-bg" data-setbg="{{ asset('assets/img/'.$show->show_image.'') }}" onclick="window.location.href='{{ route('anime.details', $show->show_id) }}'" title="{{ $show->name }}">
                                                 {{-- <div class="ep">18 / 18</div>
                                                 <div class="comment"><i class="fa fa-comments"></i> 11</div>
                                                 <div class="view"><i class="fa fa-eye"></i> 9141</div> --}}

@@ -10,6 +10,7 @@ use App\Models\Show\Show;
 use App\Models\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 
 class AnimeController extends Controller
@@ -72,14 +73,29 @@ class AnimeController extends Controller
 
     public function follow(Request $request, $id)
     {
-        $follow = Following::create([
-            'show_id' => $id,
-            'user_id' => Auth::user()->id,
-            'show_image' => $request->show_image,
-            'show_name' => $request->show_name,
-        ]);
-        if ($follow) {
-            return Redirect::route('anime.details', $id)->with('follow', 'You followed this show successfully');
+
+        $validateFollowing = Following::where('user_id', Auth::user()->id)
+            ->where('show_id', $id)->count();
+
+        if($validateFollowing > 0){
+
+            $deleteFollowings = Following::where('show_id', $id)
+                ->where('user_id', Auth::user()->id)
+                ->delete();
+            if ($deleteFollowings) {
+                return Redirect::route('anime.details', $id)->with('unfollow', 'You unfollowed this show successfully');
+            }
+        }else{
+
+            $follow = Following::create([
+                'show_id' => $id,
+                'user_id' => Auth::user()->id,
+                'show_image' => $request->show_image,
+                'show_name' => $request->show_name,
+            ]);
+            if ($follow) {
+                return Redirect::route('anime.details', $id)->with('follow', 'You followed this show successfully');
+            }
         }
     }
 

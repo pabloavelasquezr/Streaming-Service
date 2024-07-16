@@ -63,16 +63,12 @@
                         </div>
                         <div class="anime__details__btn">
                             @if(isset(Auth::user()->id))
-                                @if ($validateFollowing > 0)  
-                                    <button disabled class="follow-btn"><i class="fa fa-heart-o"></i>You Followed this Show</button>
-                                @else
-                                    <form method="POST" action="{{ route('anime.follow', $show->id) }}">
-                                        @csrf
-                                        <input type="hidden" name="show_image" value="{{ $show->image }}">
-                                        <input type="hidden" name="show_name" value="{{ $show->name }}">
-                                        <button type="submit" class="follow-btn"><i class="fa fa-heart-o"></i>Follow</button>
-                                    </form>
-                                @endif
+                                <form method="POST" action="{{ route('anime.follow', $show->id) }}">
+                                    @csrf
+                                    <input type="hidden" name="show_image" value="{{ $show->image }}">
+                                    <input type="hidden" name="show_name" value="{{ $show->name }}">
+                                    <button type="submit" class="follow-btn"><i class="fa fa-heart-o"></i>@if ($validateFollowing > 0) Unfollow @else Follow @endif</button>
+                                </form>
                             @endif
                             <a href="{{ route('anime.watching',['show_id' => $show->id,'episode_id' => 1]) }}" class="watch-btn"><span>Watch Now</span> <i class="fa fa-angle-right"></i></a>
                         </div>
@@ -104,16 +100,6 @@
                             </div>
                         </div>
                     @endforeach
-                    <div class="anime__review__item">
-                        <div class="anime__review__item__pic">
-                            <img src="img/anime/review-1.jpg" alt="">
-                        </div>
-                        <div class="anime__review__item__text">
-                            <h6>Chris Curry - <span>1 Hour ago</span></h6>
-                            <p>whachikan Just noticed that someone categorized this as belonging to the genre
-                                "demons" LOL</p>
-                        </div>
-                    </div>
                 </div>
                 <div class="anime__details__form">
                     <div class="section-title">
