@@ -101,13 +101,14 @@
                         <div class="header__nav">
                             <nav class="header__menu mobile-menu">
                                 <ul>
-                                    <li class="active"><a href="{{ route('home') }}">Homepage</a></li>
-                                    <li><a href="./categories.html">Categories <span class="arrow_carrot-down"></span></a>
+                                    <li class="{{ !request()->routeIs('anime.category') ? 'active' : '' }}"><a href="{{ route('home') }}">Homepage</a></li>
+                                    <li class="{{ request()->routeIs('anime.category') ? 'active' : '' }}"><a href="#">Categories <span class="arrow_carrot-down"></span></a>
                                         <ul class="dropdown">
                                             @foreach($categories as $category)
                                                 <li><a href="{{ route('anime.category', $category->name) }}">{{ $category->name }}</a></li>
                                             @endforeach
                                         </ul>
+                                    </li>
                                     </li>
                                 </ul>
                             </nav>
@@ -185,10 +186,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="footer__nav">
-                        <ul>
-                            <li class="active"><a href="{{ url('/') }}">Homepage</a></li>
-                            <li><a href="./categories.html">Categories</a></li>
-                        </ul>
+                        <a href="{{ url('/') }}">Homepage</a>
                     </div>
                 </div>
                 <div class="col-lg-3">

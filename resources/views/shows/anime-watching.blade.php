@@ -8,9 +8,10 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
                         <a href="{{ route('home') }}"><i class="fa fa-home"></i> Home</a>
-                        <a href="./categories.html">Categories</a>
-                        <a href="#">{{ $show->genere }}</a>
-                        <span>{{ $show->name }}</span>
+                        <span class="texto">Categories</span>
+                        <a href="{{ route('anime.category', $show->genere) }}">{{ $show->genere }}</a>
+                        <a href="{{ route('anime.details', $show->id) }}">{{ $show->name }}</a>
+                        <span>Ep {{ $episode->episode_name }}</span>
                     </div>
                 </div>
             </div>
