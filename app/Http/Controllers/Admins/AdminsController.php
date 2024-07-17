@@ -66,6 +66,7 @@ class AdminsController extends Controller
         }
     }
 
+
     public function allShows()
     {
         $allShows = Show::select()->orderBy('id', 'desc')->get();
@@ -114,6 +115,42 @@ class AdminsController extends Controller
 
         if ($storeShows) {
             return Redirect::route('shows.all')->with(['success' => 'Show created successfully']);
+        }
+    }
+
+
+    //editshows
+    public function editShows($id)
+    {
+        $show = Show::find($id);
+        $categories = Category::all();
+        return view('admins.editshows', compact('show', 'categories'));
+    }
+
+    public function updateShows(Request $request, $id)
+    {
+        $show = Show::find($id);
+        $show->name = $request->name;
+        $show->description = $request->description;
+        $show->type = $request->type;
+        $show->studios = $request->studios;
+        $show->date_aired = $request->date_aired;
+        $show->status = $request->status;
+        $show->genere = $request->genere;
+        $show->duration = $request->duration;
+        $show->quality = $request->quality;
+
+        if ($request->hasFile('image')) {
+            $destinationPath = 'assets/img/';
+            $myimage = $request->image->getClientOriginalName();
+            $request->image->move(public_path($destinationPath), $myimage);
+            $show->image = $myimage;
+        }
+
+        $show->save();
+
+        if ($show) {
+            return Redirect::route('shows.all')->with(['success' => 'Show updated successfully']);
         }
     }
 

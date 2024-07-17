@@ -433,7 +433,12 @@ ol {
 	color: #b7b7b7;
 	margin-right: 30px;
 	text-decoration: underline;
+	font-weight: bolder;
 }
+.header__right .dropdown-menu a {
+	font-weight:normal;
+}
+
 
 .header__right a:hover {
 	color: #ffffff;
