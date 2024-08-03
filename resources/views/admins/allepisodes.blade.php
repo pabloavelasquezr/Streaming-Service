@@ -30,7 +30,9 @@
                     <th scope="col">thumbnail</th>
                     <th scope="col">name</th>
                     <th scope="col">show id</th>
-                    
+                    <th scope="col">Show</th>
+                    <th scope="col">created_at</th>
+                    <th scope="col">edit</th>
                     <th scope="col">delete</th>
                   </tr>
                 </thead>
@@ -46,11 +48,13 @@
                               </video>
                             </td>
 
-                            <td><img src="{{ asset('assets/thumbnails/'.$episode->thumbnail.'') }}" alt="{{ $episode->thumbnail }}" style="width: 50px; height: 50px; border-radius: 10%;"></td>
+                            <td><img src="{{ asset('assets/thumbnails/'.$episode->thumbnail.'') }}" alt="{{ $episode->thumbnail }}" style="width: 50px; height: 50px; border-radius: 10%;object-fit: cover;"></td>
                             
                             <td>ep {{ $episode->episode_name }}</td>
                             <td>{{ $episode->show_id }}</td>
-
+                            <td>{{ $episode->show_name }}</td>
+                            <td>{{ $episode->created_at }}</td>
+                            <td><a href="{{ route('episodes.edit',$episode->id) }}" class="btn btn-primary text-center">edit</a></td>
                             <td><a href="{{ route('episodes.delete',$episode->id) }}" class="btn btn-danger  text-center ">delete</a></td>
                         </tr>
                     @endforeach

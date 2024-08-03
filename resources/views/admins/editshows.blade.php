@@ -18,7 +18,7 @@
                     <p class="alert alert-danger">{{ $errors->first('name') }}</p>
                 @endif
                 <div class="form-outline mb-4 mt-4">
-                    <img src="{{ asset('assets/img/'.$show->image.'') }}" alt="{{ $show->image }}" style="width: 50px; height: 50px; border-radius: 10%;"><p></p>
+                    <img src="{{ asset('assets/img/'.$show->image.'') }}" alt="{{ $show->image }}" style="width: 50px; height: 50px; border-radius: 10%; object-fit: cover;"><p></p>
                     <input type="file" name="image" id="form2Example1" class="form-control" value="{{ $show->image }}"  />
                    
                 </div>
@@ -37,6 +37,7 @@
                     <select name="type" class="form-select  form-control" aria-label="Default select example">
                       <option selected>Choose Type</option>
                       <option value="TV Series">Tv Series</option>
+                      <option value="Movies">Movies</option>
                     </select>
                 </div>
                 @if($errors->has('type'))

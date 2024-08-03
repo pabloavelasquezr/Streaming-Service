@@ -42,7 +42,7 @@
                         <tr>
                             <th scope="row">{{ $show->id }}</th>
                             <td>{{ $show->name }}</td>
-                            <td><img src="{{ asset('assets/img/'.$show->image.'') }}" alt="{{ $show->image }}" style="width: 50px; height: 50px; border-radius: 10%;">
+                            <td><img src="{{ asset('assets/img/'.$show->image.'') }}" alt="{{ $show->image }}" style="width: 50px; height: 50px; border-radius: 10%;object-fit: cover;}">
                             <td>{{ $show->type }}</td>
                             <td>{{ $show->date_aired }}</td>
                             <td>{{ $show->status }}</td>

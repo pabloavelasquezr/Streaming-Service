@@ -15,6 +15,17 @@ use Illuminate\Support\Facades\File;
 
 class AdminsController extends Controller
 {
+    // assets path image
+    private $assetsImgPath = 'assets/img/';
+    //private $assetsImgPath = '../../assets/img/';
+
+    private $assetsThumbnailsPath = 'assets/thumbnails/';
+    //private $assetsThumbnailsPath = '../../assets/thumbnails/';
+
+    private $assetsVideosPath = 'assets/videos/';
+    //private $assetsVideosPath = '../../assets/videos/';
+
+
     // view login
     public function viewLogin()
     {
@@ -86,7 +97,7 @@ class AdminsController extends Controller
         $this->validate($request, [
             'name' => 'required|max:40',
             'image' => 'required|max:600',
-            'description' => 'required|max:40',
+            'description' => 'required|max:600',
             'type' => 'required|max:40',
             'studios' => 'required|max:40',
             'date_aired' => 'required||max:40',
@@ -96,7 +107,7 @@ class AdminsController extends Controller
             'quality' => 'required|max:40'
         ]);
 
-        $destinationPath = 'assets/img/';
+        $destinationPath = $this->assetsImgPath;
         $myimage = $request->image->getClientOriginalName();
         $request->image->move(public_path($destinationPath), $myimage);        
 
@@ -141,7 +152,7 @@ class AdminsController extends Controller
         $show->quality = $request->quality;
 
         if ($request->hasFile('image')) {
-            $destinationPath = 'assets/img/';
+            $destinationPath = $this->assetsImgPath;
             $myimage = $request->image->getClientOriginalName();
             $request->image->move(public_path($destinationPath), $myimage);
             $show->image = $myimage;
@@ -158,8 +169,8 @@ class AdminsController extends Controller
     {
         $show = Show::find($id);
         
-        if (File::exists(public_path('assets/img/' . $show->image))) {
-            File::delete(public_path('assets/img/' . $show->image));
+        if (File::exists(public_path($this->assetsImgPath . $show->image))) {
+            File::delete(public_path($this->assetsImgPath . $show->image));
             $show->delete();
         } else {
             //dd('File does not exists.');
@@ -207,7 +218,15 @@ class AdminsController extends Controller
 
     public function allEpisodes()
     {
-        $allEpisodes = Episode::select()->orderBy('id', 'desc')->get();
+        // $allEpisodes = Episode::select()->orderBy('id', 'desc')->get();
+        // return view('admins.allepisodes', compact('allEpisodes'));
+
+
+        $allEpisodes = Episode::select('episodes.*', 'shows.name as show_name')
+        ->join('shows', 'episodes.show_id', '=', 'shows.id')
+        ->orderBy('episodes.id', 'desc')
+        ->get();
+
         return view('admins.allepisodes', compact('allEpisodes'));
     }
 
@@ -226,11 +245,11 @@ class AdminsController extends Controller
             'show_id' => 'required|max:40',
         ]);
 
-        $destinationPath = 'assets/thumbnails/';
+        $destinationPath = $this->assetsThumbnailsPath;
         $myimage = $request->thumbnail->getClientOriginalName();
         $request->thumbnail->move(public_path($destinationPath), $myimage);
 
-        $destinationPathVideo = 'assets/videos/';
+        $destinationPathVideo = $this->assetsVideosPath;
         $myvideo = $request->video->getClientOriginalName();
         $request->video->move(public_path($destinationPathVideo), $myvideo);
 
@@ -245,14 +264,48 @@ class AdminsController extends Controller
             return Redirect::route('episodes.all')->with(['success' => 'Episode created successfully']);
         }
     }
+    // edit episodes
+    public function editEpisodes($id)
+    {
+        $episode = Episode::find($id);
+        $shows = Show::all();
+        return view('admins.editepisodes', compact('episode', 'shows'));
+    }
+    // update episodes
+    public function updateEpisodes(Request $request, $id)
+    {
+        $episode = Episode::find($id);
+        $episode->episode_name = $request->name;
+        $episode->show_id = $request->show_id;
+
+        if ($request->hasFile('thumbnail')) {
+            $destinationPath = $this->assetsThumbnailsPath;
+            $myimage = $request->thumbnail->getClientOriginalName();
+            $request->thumbnail->move(public_path($destinationPath), $myimage);
+            $episode->thumbnail = $myimage;
+        }
+
+        if ($request->hasFile('video')) {
+            $destinationPathVideo = $this->assetsVideosPath;
+            $myvideo = $request->video->getClientOriginalName();
+            $request->video->move(public_path($destinationPathVideo), $myvideo);
+            $episode->video = $myvideo;
+        }
+
+        $episode->save();
+
+        if ($episode) {
+            return Redirect::route('episodes.all')->with(['success' => 'Episode updated successfully']);
+        }
+    }
     // delete episodes
     public function deleteEpisodes($id)
     {
         $episode = Episode::find($id);
         
-        if (File::exists(public_path('assets/thumbnails/' . $episode->thumbnail)) && File::exists(public_path('assets/videos/' . $episode->video))) {
-            File::delete(public_path('assets/thumbnails/' . $episode->thumbnail));
-            File::delete(public_path('assets/videos/' . $episode->video));
+        if (File::exists(public_path($this->assetsThumbnailsPath . $episode->thumbnail)) && File::exists(public_path($this->assetsVideosPath . $episode->video))) {
+            File::delete(public_path($this->assetsThumbnailsPath . $episode->thumbnail));
+            File::delete(public_path($this->assetsVideosPath . $episode->video));
             $episode->delete();
         } else {
             //dd('File does not exists.');

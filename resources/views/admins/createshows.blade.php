@@ -35,6 +35,7 @@
                     <select name="type" class="form-select  form-control" aria-label="Default select example">
                       <option selected>Choose Type</option>
                       <option value="TV Series">Tv Series</option>
+                      <option value="Movie">Movie</option>
                     </select>
                 </div>
                 @if($errors->has('type'))

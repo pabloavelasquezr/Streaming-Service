@@ -2,6 +2,7 @@
 
 @section('content')
 
+
     <div class="breadcrumb-option">
         <div class="container">
             <div class="row">
@@ -11,7 +12,9 @@
                         <span class="texto">Categories</span>
                         <a href="{{ route('anime.category', $show->genere) }}">{{ $show->genere }}</a>
                         <a href="{{ route('anime.details', $show->id) }}">{{ $show->name }}</a>
+                        @if(isset($episode))
                         <span>Ep {{ $episode->episode_name }}</span>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -24,6 +27,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
+                    
+                @if(isset($episode))
                     <div class="anime__video__player">
                         <video id="player" playsinline controls data-poster="{{ asset('assets/thumbnails/'.$episode->thumbnail.'') }}">
                             <source src="{{ asset('assets/videos/'.$episode->video.'') }}" type="video/mp4" />
@@ -39,6 +44,12 @@
                             <a href="{{ route('anime.watching', ['show_id' => $show->id,'episode_id' => $episode->episode_name]) }}">Ep {{ $episode->episode_name }}</a>
                         @endforeach
                     </div>
+                @else
+                    <div class="section-title" style="color: white; text-align: center;">
+                        <h1>This show don't have any episode </h1>
+                    </div>
+                @endif
+
                 </div>
             </div>
             <div class="row">

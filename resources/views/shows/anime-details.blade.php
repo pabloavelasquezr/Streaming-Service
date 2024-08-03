@@ -125,7 +125,7 @@
                         <div class="product__sidebar__view__item set-bg" data-setbg="{{ asset('assets/img/'.$show->image.'') }}" onclick="window.location.href='{{ route('anime.details', $show->id) }}'" title="{{ $show->name }}">
                             {{-- <div class="ep">18 / ?</div>
                             <div class="view"><i class="fa fa-eye"></i> 9141</div> --}}
-                            <h5><a href="{{ route('anime.details', $show->id) }}">{{ $show->name }}}</a></h5>
+                            <h5>{{ $show->name }}</h5>
                         </div>
                     @endforeach
                 </div>

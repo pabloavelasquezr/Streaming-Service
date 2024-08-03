@@ -35,7 +35,8 @@
                             @foreach($shows as $show)
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="{{ asset('assets/img/'.$show->image.'') }}" onclick="window.location.href='{{ route('anime.details', $show->id) }}'" title="{{ $show->name }}}">
+                                        <div class="product__item__pic set-bg" data-setbg="{{ asset('assets/img/'.$show->image.'') }}" onclick="window.location.href='{{ route('anime.details', $show->id) }}'" title="{{ $show->name }}">
+                                            <h5><a href="{{ route('anime.details', $show->id) }}">{{ $show->name }}</a></h5>
                                         </div>
                                         <div class="product__item__text">
                                             <ul>
@@ -64,7 +65,7 @@
         </div>
         @foreach($forYouShows as $show)
             <div class="product__sidebar__comment__item">
-                <div class="product__sidebar__comment__item__pic" onclick="window.location.href='{{ route('anime.details', $show->id) }}'" title="{{ $show->name }}}">
+                <div class="product__sidebar__comment__item__pic" onclick="window.location.href='{{ route('anime.details', $show->id) }}'" title="{{ $show->name }}">
                     <img src="{{ asset('assets/img/'.$show->image.'') }}" alt="">
                 </div>
                 <div class="product__sidebar__comment__item__text">
