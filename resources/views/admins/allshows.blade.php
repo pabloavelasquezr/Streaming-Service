@@ -33,6 +33,9 @@
                     <th scope="col">status</th>
                     <th scope="col">genre</th>
                     <th scope="col">created_at</th>
+                    <th scope="col">episodes</th>
+                    <th scope="col">followings</th>
+                    <th scope="col">comments</th>
                     <th scope="col">edit</th>
                     <th scope="col">delete</th>
                   </tr>
@@ -48,6 +51,9 @@
                             <td>{{ $show->status }}</td>
                             <td>{{ $show->genere }}</td>
                             <td>{{ $show->created_at }}</td>
+                            <td>{{ $show->episodes }}</td>
+                            <td>{{ $show->followings }}</td>
+                            <td>{{ $show->comments }}</td>
                             <td><a href="{{ route('shows.edit', $show->id) }}" class="btn btn-primary text-center">edit</a></td>
                             <td><a href="{{ route('shows.delete', $show->id) }}" class="btn btn-danger  text-center ">delete</a></td>
                         </tr>

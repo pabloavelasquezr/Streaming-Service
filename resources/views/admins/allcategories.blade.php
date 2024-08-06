@@ -26,16 +26,16 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">name</th>
-                    
+                    <th scope="col">shows</th>
                     <th scope="col">delete</th>
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach($categories as $category)
+                    @foreach($allCategories as $category)
                         <tr>
                             <th scope="row">{{ $category->id }}</th>
                             <td>{{ $category->name }}</td>
-                            
+                            <td>{{ $category->shows }}</td>
                             <td><a href="{{ route('categories.delete', $category->id) }}" class="btn btn-danger  text-center ">delete</a></td>
                         </tr>
                     @endforeach

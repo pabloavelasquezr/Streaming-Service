@@ -43,7 +43,6 @@ Route::post('admin/login', [App\Http\Controllers\Admins\AdminsController::class,
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::get('/index', [App\Http\Controllers\Admins\AdminsController::class, 'index'])->name('admins.dashboard');
 
-
     //admins
     Route::get('/all-admins', [App\Http\Controllers\Admins\AdminsController::class, 'allAdmins'])->name('admins.all');
     Route::get('/create-admins', [App\Http\Controllers\Admins\AdminsController::class, 'createAdmins'])->name('admins.create');
@@ -67,10 +66,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::get('/all-episodes', [App\Http\Controllers\Admins\AdminsController::class, 'allEpisodes'])->name('episodes.all');
     Route::get('/create-episodes', [App\Http\Controllers\Admins\AdminsController::class, 'createEpisodes'])->name('episodes.create');
     Route::post('/store-episodes', [App\Http\Controllers\Admins\AdminsController::class, 'storeEpisodes'])->name('episodes.store');
-
     Route::get('/edit-episodes/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'editEpisodes'])->name('episodes.edit');
     Route::put('/update-episodes/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'updateEpisodes'])->name('episodes.update');
-    
     Route::get('/delete-episodes/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'deleteEpisodes'])->name('episodes.delete');
+
+    //users
+    Route::get('/all-users', [App\Http\Controllers\Admins\AdminsController::class, 'allUsers'])->name('users.all');
+
+    //followings
+    Route::get('/all-followings', [App\Http\Controllers\Admins\AdminsController::class, 'allFollowings'])->name('followings.all');
+
+    //comments
+    Route::get('/all-comments', [App\Http\Controllers\Admins\AdminsController::class, 'allComments'])->name('comments.all');
 
 });

@@ -24,22 +24,31 @@
         @auth('admin')
 
           <ul class="navbar-nav side-nav" >
-            <li class="nav-item">
+            <li class="{{ request()->routeIs('admins.dashboard') ? 'active' : '' }}">
               <a class="nav-link" style="margin-left: 20px;" href="{{ route('admins.dashboard') }}">Home
                 <span class="sr-only">(current)</span>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="{{ request()->routeIs('admins.all') ? 'active' : '' }}">
               <a class="nav-link" href="{{ route('admins.all') }}" style="margin-left: 20px;">Admins</a>
             </li>
-            <li class="nav-item">
+            <li class="{{ request()->routeIs('users.all') ? 'active' : '' }}">
+              <a class="nav-link" href="{{ route('users.all') }}" style="margin-left: 20px;">Users</a>
+            </li>
+            <li class="{{ request()->routeIs('shows.all') ? 'active' : '' }}">
               <a class="nav-link" href="{{ route('shows.all') }}" style="margin-left: 20px;">Shows</a>
             </li>
-            <li class="nav-item">
+            <li class="{{ request()->routeIs('categories.all') ? 'active' : '' }}">
               <a class="nav-link" href="{{ route('categories.all') }}" style="margin-left: 20px;">Genres</a>
             </li>
-            <li class="nav-item">
+            <li class="{{ request()->routeIs('episodes.all') ? 'active' : '' }}">
               <a class="nav-link" href="{{ route('episodes.all') }}" style="margin-left: 20px;">Episodes</a>
+            </li>
+            <li class="{{ request()->routeIs('followings.all') ? 'active' : '' }}">
+              <a class="nav-link" href="{{ route('followings.all') }}" style="margin-left: 20px;">Followings</a>
+            </li>
+            <li class="{{ request()->routeIs('comments.all') ? 'active' : '' }}">
+              <a class="nav-link" href="{{ route('comments.all') }}" style="margin-left: 20px;">Comments</a>
             </li>
           </ul>
 

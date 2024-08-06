@@ -9,9 +9,12 @@ use App\Models\Admin\Admin;
 use App\Models\Category\Category;
 use App\Models\Episode\Episode;
 use App\Models\Show\Show;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\File;
+use App\Models\Comment\Comment;
+use App\Models\Following\Following;
 
 class AdminsController extends Controller
 {
@@ -77,10 +80,17 @@ class AdminsController extends Controller
         }
     }
 
-
     public function allShows()
     {
-        $allShows = Show::select()->orderBy('id', 'desc')->get();
+        $allShows = Show::select('shows.id', 'shows.name', 'shows.image', 'shows.type', 'shows.date_aired', 'shows.status', 'shows.genere', 'shows.created_at')
+        ->leftjoin('followings', 'shows.id', '=', 'followings.show_id')
+        ->leftjoin('comments', 'shows.id', '=', 'comments.show_id')
+        ->leftjoin('episodes', 'shows.id', '=', 'episodes.show_id')
+        ->groupBy('shows.id', 'shows.name', 'shows.image', 'shows.type', 'shows.date_aired', 'shows.status', 'shows.genere', 'shows.created_at')
+        ->selectRaw('count(distinct followings.id) as followings')
+        ->selectRaw('count(distinct comments.id) as comments')
+        ->selectRaw('count(distinct episodes.id) as episodes')
+        ->orderBy('shows.id', 'desc')->get();
         return view('admins.allshows', compact('allShows'));
     }
 
@@ -184,7 +194,12 @@ class AdminsController extends Controller
 
     public function allCategories()
     {
-        $allCategories = Category::select()->orderBy('id', 'desc')->get();
+        $allCategories = Category::select('categories.id', 'categories.name')
+        ->leftjoin('shows', 'shows.genere', '=', 'categories.name')
+        ->groupBy('categories.id', 'categories.name')
+        ->selectRaw('count(shows.genere) as shows')
+        ->orderBy('categories.id', 'desc')
+        ->get();
         return view('admins.allcategories', compact('allCategories'));
     }
 
@@ -314,5 +329,39 @@ class AdminsController extends Controller
         if ($episode) {
             return Redirect::route('episodes.all')->with(['delete' => 'Episode deleted successfully']);
         }
+    }
+
+    // allUsers
+    public function allUsers()
+    {
+        $allUsers = User::select('users.id','users.name', 'users.email', 'users.image')
+        ->leftjoin('comments', 'comments.user_name', '=', 'users.name')
+        ->leftjoin('followings', 'followings.user_id', '=', 'users.id')
+        ->groupBy('users.id', 'users.name', 'users.email', 'users.image')
+        ->selectRaw('count(distinct comments.id) as comments')
+        ->selectRaw('count(distinct followings.id) as followings')
+        ->orderBy('users.id', 'desc')
+        ->get();
+        return view('admins.allusers', compact('allUsers'));
+    }
+
+    // allFollowings
+    public function allFollowings()
+    {
+        $allFollowings = Following::select('followings.*', 'users.name')
+        ->leftjoin('users', 'users.id', '=', 'followings.user_id')
+        ->orderBy('followings.id', 'desc')
+        ->get();
+        return view('admins.allfollowings', compact('allFollowings'));
+    }
+
+    // allComments
+    public function allComments()
+    {
+        $allComments = Comment::select('comments.*', 'shows.name as show_name')
+        ->leftjoin('shows', 'shows.id', '=', 'comments.show_id')
+        ->orderBy('comments.id', 'desc')
+        ->get();
+        return view('admins.allcomments', compact('allComments'));
     }
 }
