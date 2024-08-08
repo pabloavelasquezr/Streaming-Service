@@ -12,11 +12,13 @@
                   <!-- Email input -->
                   @csrf
                   <div class="form-outline mb-4">
-                    <input type="email" name="email" id="form2Example1" class="form-control" placeholder="Email" />
-                   
+                    <input type="email" name="email" id="form2Example1" class="form-control" placeholder="Email" value="{{ old('email') }}" />
+                    @error('email')
+                        <span class="invalid-feedback" role="alert" style="display: contents;">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                   </div>
-
-                  
                   <!-- Password input -->
                   <div class="form-outline mb-4">
                     <input type="password" name="password" id="form2Example2" placeholder="Password" class="form-control" />
