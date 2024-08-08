@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             EpisodeSeeder::class,
             categorySeeder::class,
             adminSeeder::class,
+            FollowingSeeder::class,
         ]);
     }
 }

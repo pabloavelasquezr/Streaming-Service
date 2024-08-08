@@ -16,7 +16,7 @@ class CommentSeeder extends Seeder
         //
         $comment = new Comment();
         $comment->show_id = 1;
-        $comment->user_name = 'John Doe';
+        $comment->user_name = 'Pablo Velasquez';
         $comment->image = 'user-image.png';
         $comment->comment = 'This is a great show, I love it!';
         $comment->save();
@@ -30,7 +30,7 @@ class CommentSeeder extends Seeder
 
         $comment = new Comment();
         $comment->show_id = 2;
-        $comment->user_name = 'John Doe';
+        $comment->user_name = 'Pablo Velasquez';
         $comment->image = 'user-image.png';
         $comment->comment = 'I love this show, it is so good!';
         $comment->save();
