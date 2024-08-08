@@ -43,7 +43,15 @@ class AdminsController extends Controller
         if (Auth::guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $remember_me)) {
             return redirect()->route('admins.dashboard');
         }
-        return redirect()->back()->with(['error' => 'Email or password is incorrect']);
+        // error message
+        return back()->withInput($request->only('email', 'remember_me'))->withErrors(['email' => 'Invalid email or password']);
+    }
+
+    // logout
+    public function adminLogout()
+    {
+        Auth::guard('admin')->logout();
+        return redirect('/');
     }
 
     public function index()
