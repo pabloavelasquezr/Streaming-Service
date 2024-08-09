@@ -62,21 +62,21 @@ class episodeSeeder extends Seeder
 
         $episode = new Episode();
         $episode->show_id = 9;
-        $episode->episode_name = '12';
+        $episode->episode_name = '1';
         $episode->video = 'spiritedaway.mp4';
         $episode->thumbnail = 'spiritaways_banner.jpg';
         $episode->save();
 
         $episode = new Episode();
         $episode->show_id = 1;
-        $episode->episode_name = '4';
+        $episode->episode_name = '1';
         $episode->video = 'totoro.mp4';
         $episode->thumbnail = 'totoro-banner.jpg';
         $episode->save();
 
         $episode = new Episode();
         $episode->show_id = 4;
-        $episode->episode_name = '7';
+        $episode->episode_name = '1';
         $episode->video = 'attackontitan.mp4';
         $episode->thumbnail = 'attackoftitan-banner.jpg';
         $episode->save();
